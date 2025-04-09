@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BodyPart, tools } from "../data/tools";
+import { BodyPart } from "../data/tools";
 import ToolModal from "./ToolModal";
 
 const BodyDiagram = () => {
