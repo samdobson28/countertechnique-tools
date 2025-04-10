@@ -1,10 +1,11 @@
+// src/app/layout.tsx
+
 import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Countertechnique Tools",
-  description:
-    "Clickable anatomy to reveal personalized Countertechnique insights",
+  title: "Interactive Anatomy Diagram for Countertechnique Dance",
+  description: "Click on body parts to see tool descriptions.",
 };
 
 export default function RootLayout({
