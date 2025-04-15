@@ -1,3 +1,5 @@
+// InteractiveFrontDiagram.tsx
+
 "use client";
 
 import React, { useState, useRef } from "react";
@@ -69,203 +71,173 @@ const InteractiveFrontDiagram = () => {
   };
 
   return (
-    <div style={{ display: "flex", gap: "16px", padding: "16px" }}>
-      {/* Left Panel: Background image with SVG overlay */}
-      <div
-        style={{
-          position: "relative",
-          width: "569px",
-          height: "1031px",
-          border: "1px solid #ccc",
-        }}
-      >
-        {/* Background Image */}
-        <img
-          src="/front-body.png"
-          alt="Front Body"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-            zIndex: 0,
-            pointerEvents: "none",
-          }}
-        />
-        {/* SVG Overlay */}
-        <svg
-          ref={svgRef}
-          width="569"
-          height="1031"
-          viewBox="0 0 569 1031"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: 10,
-            cursor: "pointer",
-          }}
-          onClick={handleSvgClick}
+    <div className="w-full flex justify-center">
+      <div className="flex gap-4 p-4 min-w-[560px] justify-center">
+        <div
+          className="relative border border-gray-300"
+          style={{ width: 410, height: 742 }}
         >
-          {/*
+          <img
+            src="/front-body.png"
+            alt="Front Body"
+            className="absolute top-0 left-0 w-full h-full object-contain z-0 pointer-events-none"
+          />
+          <svg
+            ref={svgRef}
+            viewBox="0 0 410 742"
+            className="absolute top-0 left-0 w-full h-full z-10 cursor-pointer"
+            onClick={handleSvgClick}
+          >
+            {/*
             Wrap all groups in a parent group for slight scaling/translation if desired.
             (Using the same transform as before: translate(14,26) scale(0.95))
           */}
-          <g transform="translate(14,26) scale(0.95)">
-            {/* Group 1: Head (black) → mapped to "Head" */}
-            <g data-part="Head" transform="translate(0, 20)">
-              <path
-                d="M247 15L283.5 1H296.5L331.5 23.5L341.5 57.5V90L312 145H265.5L231.5 97V57.5L247 15Z"
-                stroke=""
-                fill="black"
-                fillOpacity="0"
-              />
+            <g transform="translate(10.1,18.7) scale(0.684)">
+              {/* Group 1: Head (black) → mapped to "Head" */}
+              <g data-part="Head" transform="translate(0, 20)">
+                <path
+                  d="M247 15L283.5 1H296.5L331.5 23.5L341.5 57.5V90L312 145H265.5L231.5 97V57.5L247 15Z"
+                  stroke=""
+                  fill="black"
+                  fillOpacity="0"
+                />
+              </g>
+              {/* Group 2: Eyes (red) → mapped to "Eyes" */}
+              <g data-part="Eyes" transform="translate(0, 20)">
+                <path
+                  d="M257 61.5H278L293.5 54.5L315 61.5L323 77L295 87H265.5L247 77L257 61.5Z"
+                  stroke=""
+                  fill="#FF0000"
+                  fillOpacity="0"
+                />
+              </g>
+              {/* Group 3: Shoulder Girdle (blue) → mapped to "Shoulder Girdle" */}
+              <g data-part="Shoulder Girdle">
+                <path
+                  d="M131 231L151 193L204.5 159L245.5 146.5L267 159L324.5 146.5L360 159L396.5 173L420.5 207L413.5 243.5L381 283.5L303.5 299L190.5 283.5L176.5 256.5L131 231Z"
+                  stroke=""
+                  fill="#0000FF"
+                  fillOpacity="0"
+                />
+              </g>
+              {/* Group 4: Armpits (green) → mapped to "Armpits" */}
+              <g data-part="Armpits">
+                <path
+                  d="M149 327.5H193.5L211 295L193.5 249L137 231.5L118 260L127.5 308.5L149 327.5Z"
+                  stroke=""
+                  fill="#008000"
+                  fillOpacity="0"
+                />
+                <path
+                  d="M404.5 231.5L380 260V295V327.5L411 333L434 308.5L451.5 281.5L442.5 231.5H404.5Z"
+                  stroke=""
+                  fill="#008000"
+                  fillOpacity="0"
+                />
+              </g>
+              {/* Group 5: Arms (purple) → mapped to "Arms" */}
+              <g data-part="Arms">
+                <path
+                  d="M53 523.5H83L138 422L151.5 353L177.5 291V265.5L151.5 252L97.5 341L66.5 465.5L53 523.5Z"
+                  stroke=""
+                  fill="#800080"
+                  fillOpacity="0"
+                />
+                <path
+                  d="M461 465.5L492.5 523.5L523.5 508.5L514 483L504.5 441L474.5 353L461 320.5L439.5 284L426 252L406 243.5L396.5 275L418 353L439.5 422L461 465.5Z"
+                  stroke=""
+                  fill="#800080"
+                  fillOpacity="0"
+                />
+              </g>
+              {/* Group 6: Hands (pink) → mapped to "Hands" */}
+              <g data-part="Hands">
+                <path
+                  d="M23.5 634H53L78.5 612.5V581.5V552L60 519.5H34L1.5 564L23.5 612.5V634Z"
+                  stroke=""
+                  fill="#FFC0CB"
+                  fillOpacity="0"
+                  transform="translate(10, -5)"
+                />
+                <path
+                  d="M491 581.5V519.5H533L568 564L557 612.5L533 634L491 612.5V581.5Z"
+                  stroke=""
+                  fill="#FFC0CB"
+                  fillOpacity="0"
+                  transform="translate(-5, 5)"
+                />
+              </g>
+              {/* Group 7: Trunk (grey) → mapped to "Trunk" */}
+              <g data-part="Trunk">
+                <path
+                  d="M266.5 192.5L188 208.5V349L181.5 431.5L188 510L222 530H291L330 522H389.5V495L379 435.5V406V364V327.5L399 297.5L379 231.5L361 192.5H266.5Z"
+                  stroke=""
+                  fill="#808080"
+                  fillOpacity="0"
+                />
+              </g>
+              {/* Group 8: Hips (brown) → mapped to "Hips" */}
+              <g data-part="Hips">
+                <path
+                  d="M393.5 561.5H180V433L191 403L219.5 395L331.5 403H384L393.5 449V561.5Z"
+                  stroke=""
+                  fill="#A52A2A"
+                  fillOpacity="0"
+                />
+              </g>
+              {/* Group 9: Legs (yellow) → mapped to "Legs" */}
+              <g data-part="Legs">
+                <path
+                  d="M260 915.5H226L201.5 810L214 733V688.5L178.5 598L188 441L273.5 522V564V733L260 915.5Z"
+                  stroke=""
+                  fill="#FFFF00"
+                  fillOpacity="0"
+                />
+                <path
+                  d="M319.5 873.5V915.5H353L362.5 885.5V773.5L353 733L377.5 648L388 580V441L343.5 479L293.5 522V541V688.5L307 746.5L293.5 799L319.5 873.5Z"
+                  stroke=""
+                  fill="#FFFF00"
+                  fillOpacity="0"
+                />
+              </g>
+              {/* Group 10: Feet (orange) → mapped to "Feet" */}
+              <g data-part="Feet" transform="translate(0, -20)">
+                <path
+                  d="M216.5 975L226 921H258.5L269.5 985.5V1030H226L216.5 1007.5V975Z"
+                  stroke=""
+                  fill="#FFA500"
+                  fillOpacity="0"
+                />
+                <path
+                  d="M307 968L318 921H350.5V957.5L362.5 985.5L338 1030L307 1021V1007.5V968Z"
+                  stroke=""
+                  fill="#FFA500"
+                  fillOpacity="0"
+                />
+              </g>
             </g>
-            {/* Group 2: Eyes (red) → mapped to "Eyes" */}
-            <g data-part="Eyes" transform="translate(0, 20)">
-              <path
-                d="M257 61.5H278L293.5 54.5L315 61.5L323 77L295 87H265.5L247 77L257 61.5Z"
-                stroke=""
-                fill="#FF0000"
-                fillOpacity="0"
-              />
-            </g>
-            {/* Group 3: Shoulder Girdle (blue) → mapped to "Shoulder Girdle" */}
-            <g data-part="Shoulder Girdle">
-              <path
-                d="M131 231L151 193L204.5 159L245.5 146.5L267 159L324.5 146.5L360 159L396.5 173L420.5 207L413.5 243.5L381 283.5L303.5 299L190.5 283.5L176.5 256.5L131 231Z"
-                stroke=""
-                fill="#0000FF"
-                fillOpacity="0"
-              />
-            </g>
-            {/* Group 4: Armpits (green) → mapped to "Armpits" */}
-            <g data-part="Armpits">
-              <path
-                d="M149 327.5H193.5L211 295L193.5 249L137 231.5L118 260L127.5 308.5L149 327.5Z"
-                stroke=""
-                fill="#008000"
-                fillOpacity="0"
-              />
-              <path
-                d="M404.5 231.5L380 260V295V327.5L411 333L434 308.5L451.5 281.5L442.5 231.5H404.5Z"
-                stroke=""
-                fill="#008000"
-                fillOpacity="0"
-              />
-            </g>
-            {/* Group 5: Arms (purple) → mapped to "Arms" */}
-            <g data-part="Arms">
-              <path
-                d="M53 523.5H83L138 422L151.5 353L177.5 291V265.5L151.5 252L97.5 341L66.5 465.5L53 523.5Z"
-                stroke=""
-                fill="#800080"
-                fillOpacity="0"
-              />
-              <path
-                d="M461 465.5L492.5 523.5L523.5 508.5L514 483L504.5 441L474.5 353L461 320.5L439.5 284L426 252L406 243.5L396.5 275L418 353L439.5 422L461 465.5Z"
-                stroke=""
-                fill="#800080"
-                fillOpacity="0"
-              />
-            </g>
-            {/* Group 6: Hands (pink) → mapped to "Hands" */}
-            <g data-part="Hands">
-              <path
-                d="M23.5 634H53L78.5 612.5V581.5V552L60 519.5H34L1.5 564L23.5 612.5V634Z"
-                stroke=""
-                fill="#FFC0CB"
-                fillOpacity="0"
-                transform="translate(10, -5)"
-              />
-              <path
-                d="M491 581.5V519.5H533L568 564L557 612.5L533 634L491 612.5V581.5Z"
-                stroke=""
-                fill="#FFC0CB"
-                fillOpacity="0"
-                transform="translate(-5, 5)"
-              />
-            </g>
-            {/* Group 7: Trunk (grey) → mapped to "Trunk" */}
-            <g data-part="Trunk">
-              <path
-                d="M266.5 192.5L188 208.5V349L181.5 431.5L188 510L222 530H291L330 522H389.5V495L379 435.5V406V364V327.5L399 297.5L379 231.5L361 192.5H266.5Z"
-                stroke=""
-                fill="#808080"
-                fillOpacity="0"
-              />
-            </g>
-            {/* Group 8: Hips (brown) → mapped to "Hips" */}
-            <g data-part="Hips">
-              <path
-                d="M393.5 561.5H180V433L191 403L219.5 395L331.5 403H384L393.5 449V561.5Z"
-                stroke=""
-                fill="#A52A2A"
-                fillOpacity="0"
-              />
-            </g>
-            {/* Group 9: Legs (yellow) → mapped to "Legs" */}
-            <g data-part="Legs">
-              <path
-                d="M260 915.5H226L201.5 810L214 733V688.5L178.5 598L188 441L273.5 522V564V733L260 915.5Z"
-                stroke=""
-                fill="#FFFF00"
-                fillOpacity="0"
-              />
-              <path
-                d="M319.5 873.5V915.5H353L362.5 885.5V773.5L353 733L377.5 648L388 580V441L343.5 479L293.5 522V541V688.5L307 746.5L293.5 799L319.5 873.5Z"
-                stroke=""
-                fill="#FFFF00"
-                fillOpacity="0"
-              />
-            </g>
-            {/* Group 10: Feet (orange) → mapped to "Feet" */}
-            <g data-part="Feet" transform="translate(0, -20)">
-              <path
-                d="M216.5 975L226 921H258.5L269.5 985.5V1030H226L216.5 1007.5V975Z"
-                stroke=""
-                fill="#FFA500"
-                fillOpacity="0"
-              />
-              <path
-                d="M307 968L318 921H350.5V957.5L362.5 985.5L338 1030L307 1021V1007.5V968Z"
-                stroke=""
-                fill="#FFA500"
-                fillOpacity="0"
-              />
-            </g>
-          </g>
-        </svg>
-      </div>
+          </svg>
+        </div>
 
-      {/* Right Panel: Display selected parts */}
-      <div
-        style={{
-          width: "250px",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-          padding: "8px",
-          height: "725px",
-          overflowY: "auto",
-          paddingTop: "300px",
-        }}
-      >
-        <h3>Selected Body Part(s)</h3>
-        {selectedParts.length > 0 ? (
-          selectedParts.map((part) => (
-            <div key={part}>
-              <h4>{part}</h4>
-              <p>{partDescriptions[part] || "No description available."}</p>
-              <hr />
-            </div>
-          ))
-        ) : (
-          <p>Click an area of the diagram for details.</p>
-        )}
+        {/* Right Panel: Display selected parts */}
+        <div className="w-[180px] h-[522px] overflow-y-auto border border-gray-300 rounded p-2 pt-[216px]">
+          <h3 className="text-lg font-semibold text-center lg:text-left">
+            Selected Body Part(s)
+          </h3>
+          {selectedParts.length > 0 ? (
+            selectedParts.map((part) => (
+              <div key={part}>
+                <h4>{part}</h4>
+                <p>{partDescriptions[part] || "No description available."}</p>
+                <hr />
+              </div>
+            ))
+          ) : (
+            <p className="text-center lg:text-left">
+              Click an area of the diagram for details.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
