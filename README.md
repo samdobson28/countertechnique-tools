@@ -1,1 +1,1 @@
-## Deployed at [https://countertechnique-tools.vercel.app/about](https://countertechnique-tools.vercel.app/)
+## Deployed at [https://countertechnique-tools.vercel.app/](https://countertechnique-tools.vercel.app/)
