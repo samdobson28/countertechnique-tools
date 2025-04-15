@@ -220,23 +220,26 @@ const InteractiveFrontDiagram = () => {
         </div>
 
         {/* Right Panel: Display selected parts */}
-        <div className="w-[180px] h-[522px] overflow-y-auto border border-gray-300 rounded p-2 pt-[216px]">
-          <h3 className="text-lg font-semibold text-center lg:text-left">
+        <div className="w-[180px] h-[742px] overflow-y-auto border border-gray-300 rounded-lg p-4 bg-white shadow-sm">
+          <h3 className="text-lg font-semibold text-indigo-900 mb-4 sticky top-0 bg-white pb-2 border-b border-gray-200">
             Selected Body Part(s)
           </h3>
-          {selectedParts.length > 0 ? (
-            selectedParts.map((part) => (
-              <div key={part}>
-                <h4>{part}</h4>
-                <p>{partDescriptions[part] || "No description available."}</p>
-                <hr />
+          <div className="space-y-4">
+            {selectedParts.length > 0 ? (
+              selectedParts.map((part) => (
+                <div key={part} className="bg-indigo-50 rounded-lg p-3">
+                  <h4 className="font-medium text-indigo-700 mb-2">{part}</h4>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {partDescriptions[part] || "No description available."}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <div className="text-center text-gray-500 mt-4">
+                <p>Click an area of the diagram for details.</p>
               </div>
-            ))
-          ) : (
-            <p className="text-center lg:text-left">
-              Click an area of the diagram for details.
-            </p>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
