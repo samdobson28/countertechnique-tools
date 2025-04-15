@@ -24,6 +24,7 @@ const partDescriptions: Record<string, string> = {
 
 const InteractiveFrontDiagram = () => {
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const svgRef = useRef<SVGSVGElement>(null);
 
   // Convert mouse event coordinates to SVG coordinates.
@@ -52,9 +53,8 @@ const InteractiveFrontDiagram = () => {
       let isInside = false;
       group.childNodes.forEach((child) => {
         if (child instanceof SVGGeometryElement) {
-          const ctm = child.getCTM(); // get the current transform matrix
+          const ctm = child.getCTM();
           if (ctm) {
-            // transform the click point to the element's local coordinate space
             const localPt = svgPt.matrixTransform(ctm.inverse());
             if (child.isPointInFill(localPt)) {
               isInside = true;
@@ -66,16 +66,22 @@ const InteractiveFrontDiagram = () => {
         partsFound.push(partName);
       }
     });
-    console.log("Clicked SVG at", svgPt.x, svgPt.y, "found parts:", partsFound);
     setSelectedParts(Array.from(new Set(partsFound)));
+    if (partsFound.length > 0) {
+      setIsPopupOpen(true);
+    }
   };
 
   return (
     <div className="w-full flex justify-center">
-      <div className="flex gap-4 p-4 min-w-[560px] justify-center">
+      <div className="flex flex-col sm:flex-row gap-4 p-4 w-full sm:min-w-[560px] justify-center">
         <div
-          className="relative border border-gray-300"
-          style={{ width: 410, height: 742 }}
+          className="relative border border-gray-300 mx-auto"
+          style={{
+            width: "min(410px, 100%)",
+            height: 742,
+            aspectRatio: "410/742",
+          }}
         >
           <img
             src="/front-body.png"
@@ -87,6 +93,7 @@ const InteractiveFrontDiagram = () => {
             viewBox="0 0 410 742"
             className="absolute top-0 left-0 w-full h-full z-10 cursor-pointer"
             onClick={handleSvgClick}
+            preserveAspectRatio="xMidYMid meet"
           >
             {/*
             Wrap all groups in a parent group for slight scaling/translation if desired.
@@ -104,11 +111,20 @@ const InteractiveFrontDiagram = () => {
               </g>
               {/* Group 2: Eyes (red) → mapped to "Eyes" */}
               <g data-part="Eyes" transform="translate(0, 20)">
+                {/* Left Eye */}
                 <path
                   d="M257 61.5H278L293.5 54.5L315 61.5L323 77L295 87H265.5L247 77L257 61.5Z"
                   stroke=""
                   fill="#FF0000"
                   fillOpacity="0"
+                />
+                {/* Right Eye */}
+                <path
+                  d="M257 61.5H278L293.5 54.5L315 61.5L323 77L295 87H265.5L247 77L257 61.5Z"
+                  stroke=""
+                  fill="#FF0000"
+                  fillOpacity="0"
+                  transform="translate(30, 0)"
                 />
               </g>
               {/* Group 3: Shoulder Girdle (blue) → mapped to "Shoulder Girdle" */}
@@ -219,28 +235,71 @@ const InteractiveFrontDiagram = () => {
           </svg>
         </div>
 
-        {/* Right Panel: Display selected parts */}
-        <div className="w-[180px] h-[742px] overflow-y-auto border border-gray-300 rounded-lg p-4 bg-white shadow-sm">
-          <h3 className="text-lg font-semibold text-indigo-900 mb-4 sticky top-0 bg-white pb-2 border-b border-gray-200">
-            Selected Body Part(s)
-          </h3>
-          <div className="space-y-4">
-            {selectedParts.length > 0 ? (
-              selectedParts.map((part) => (
-                <div key={part} className="bg-indigo-50 rounded-lg p-3">
-                  <h4 className="font-medium text-indigo-700 mb-2">{part}</h4>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {partDescriptions[part] || "No description available."}
-                  </p>
+        {/* Desktop Description Panel */}
+        <div className="hidden sm:block w-[180px] h-[742px] overflow-y-auto border border-gray-300 rounded-lg bg-white shadow-sm">
+          <div className="p-4">
+            <h3 className="text-lg font-semibold text-indigo-900 mb-4 sticky -top-4 -mt-4 pt-4 bg-white pb-2 border-b border-gray-200 z-10">
+              Selected Body Part(s)
+            </h3>
+            <div className="space-y-4">
+              {selectedParts.length > 0 ? (
+                selectedParts.map((part) => (
+                  <div key={part} className="bg-indigo-50 rounded-lg p-3">
+                    <h4 className="font-medium text-indigo-700 mb-2">{part}</h4>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {partDescriptions[part] || "No description available."}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center text-gray-500 mt-4">
+                  <p>Click an area of the diagram for details.</p>
                 </div>
-              ))
-            ) : (
-              <div className="text-center text-gray-500 mt-4">
-                <p>Click an area of the diagram for details.</p>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
+
+        {/* Mobile Popup */}
+        {isPopupOpen && (
+          <div className="fixed inset-0 bg-black/50 z-50 sm:hidden">
+            <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 max-h-[80vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold text-indigo-900">
+                  Selected Body Part(s)
+                </h3>
+                <button
+                  onClick={() => setIsPopupOpen(false)}
+                  className="p-2 rounded-full hover:bg-gray-100"
+                >
+                  <svg
+                    className="w-6 h-6 text-gray-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="space-y-4">
+                {selectedParts.map((part) => (
+                  <div key={part} className="bg-indigo-50 rounded-lg p-3">
+                    <h4 className="font-medium text-indigo-700 mb-2">{part}</h4>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {partDescriptions[part] || "No description available."}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
