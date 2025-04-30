@@ -4,22 +4,63 @@
 
 import React, { useState, useRef } from "react";
 
-// Descriptions for each body part.
-const partDescriptions: Record<string, string> = {
-  Head: "The head releases like a ball in a socket — it slides and circles, often in opposition to the body. → Letting the head move independently gives freedom and dynamic balance, especially in turns or falls.",
-  Eyes: "See the room and dance with the eyes — they can initiate or respond to movement. → This expands awareness, facilitates directionality, and integrates the dancer with the space.",
-  "Shoulder Girdle":
-    "Open the shoulder girdle by sending the arms outwards — especially during directional changes like falls or swipes. → Creating space here allows energy to pass through the trunk more efficiently, enabling full-bodied movement and flow.",
-  Armpits:
-    "Allowing more air and lightness in the armpits supports overall suspension and ease — especially in moments like kicks or transitions. → Airiness here prevents compression and helps lift the upper body without extra muscular effort.",
-  Arms: "Arms can clarify direction and redistribute momentum — either by reaching outward or pulling in to balance. → Choosing how to engage or contain the arms changes weight distribution and gives the dancer more control or freedom.",
-  Hands:
-    "Extend hands beyond the length of body and see your fingertips as you swipe.",
-  Trunk:
-    "The trunk connects everything — notice when to engage or release. The trunk can go after the leg. → Practicing delay or sequencing between parts allows momentum and flow rather than stiffness or over-control.",
-  Hips: "Keep sit bones down and knees soft to stack hips with legs — especially during double bounce/swipe. → Bending the knees allows for openness and alignment in the pelvis, which supports suspension and balance.",
-  Legs: "Send the knees away from each other (and keep sending them!) during pliés, falls, and lunges. This activates more space and energy in the lower body, enabling suspension and directional clarity in movement.",
-  Feet: "Extend the leg beyond its length when traveling to allow a fall to float again — not just a stomp. → Finding length here increases lightness and traveling range, tying the fall to the next movement with flow.",
+// Descriptions for each body part, now focused on specific tools and actions
+const partDescriptions: Record<
+  string,
+  { tool: string; description: string[] }
+> = {
+  Head: {
+    tool: "Release the Head",
+    description: ["Move head independently from body"],
+  },
+  Eyes: {
+    tool: "Dance with Your Eyes",
+    description: [
+      "Initiate movement with eyes",
+      "Connect with surrounding space",
+    ],
+  },
+  "Shoulder Girdle": {
+    tool: "Open the Shoulder Girdle",
+    description: ["Create space between shoulders", "Send arms outward"],
+  },
+  Armpits: {
+    tool: "Lighten the Armpits",
+    description: ["Maintain airiness under arms", "Prevent compression"],
+  },
+  Arms: {
+    tool: "Use Arms for Direction",
+    description: [
+      "Clarify movement direction",
+      "Reach outward to expand space",
+    ],
+  },
+  Hands: {
+    tool: "Extend Beyond Your Body",
+    description: ["Reach hands beyond body length -- INFINITELY!"],
+  },
+  Trunk: {
+    tool: "Connect Through Your Trunk",
+    description: [
+      "Link different body parts",
+      "Spiral (infinitely), don't scrunch!",
+    ],
+  },
+  Hips: {
+    tool: "Stack Hips Over Legs",
+    description: ["Keep sit bones down", "Maintain soft knees"],
+  },
+  Legs: {
+    tool: "Create Space Between Knees",
+    description: [
+      "Send knees away from each other",
+      "Activate during pliés and lunges",
+    ],
+  },
+  Feet: {
+    tool: "Extend Your Reach",
+    description: ["Extend legs beyond length", "Create lightness in movement"],
+  },
 };
 
 const InteractiveFrontDiagram = () => {
@@ -239,21 +280,27 @@ const InteractiveFrontDiagram = () => {
         <div className="hidden sm:block w-[180px] h-[742px] overflow-y-auto border border-gray-300 rounded-lg bg-white shadow-sm">
           <div className="p-4">
             <h3 className="text-lg font-semibold text-indigo-900 mb-4 sticky -top-4 -mt-4 pt-4 bg-white pb-2 border-b border-gray-200 z-10">
-              Selected Body Part(s)
+              Movement Tools
             </h3>
             <div className="space-y-4">
               {selectedParts.length > 0 ? (
                 selectedParts.map((part) => (
                   <div key={part} className="bg-indigo-50 rounded-lg p-3">
-                    <h4 className="font-medium text-indigo-700 mb-2">{part}</h4>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {partDescriptions[part] || "No description available."}
-                    </p>
+                    <h4 className="font-medium text-indigo-700 mb-2">
+                      {partDescriptions[part].tool}
+                    </h4>
+                    <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                      {partDescriptions[part].description.map(
+                        (point, index) => (
+                          <li key={index}>{point}</li>
+                        )
+                      )}
+                    </ul>
                   </div>
                 ))
               ) : (
                 <div className="text-center text-gray-500 mt-4">
-                  <p>Click an area of the diagram for details.</p>
+                  <p>Click an area of the diagram for movement tools.</p>
                 </div>
               )}
             </div>
@@ -266,7 +313,7 @@ const InteractiveFrontDiagram = () => {
             <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 max-h-[80vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold text-indigo-900">
-                  Selected Body Part(s)
+                  Movement Tools
                 </h3>
                 <button
                   onClick={() => setIsPopupOpen(false)}
@@ -290,10 +337,16 @@ const InteractiveFrontDiagram = () => {
               <div className="space-y-4">
                 {selectedParts.map((part) => (
                   <div key={part} className="bg-indigo-50 rounded-lg p-3">
-                    <h4 className="font-medium text-indigo-700 mb-2">{part}</h4>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {partDescriptions[part] || "No description available."}
-                    </p>
+                    <h4 className="font-medium text-indigo-700 mb-2">
+                      {partDescriptions[part].tool}
+                    </h4>
+                    <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                      {partDescriptions[part].description.map(
+                        (point, index) => (
+                          <li key={index}>{point}</li>
+                        )
+                      )}
+                    </ul>
                   </div>
                 ))}
               </div>
