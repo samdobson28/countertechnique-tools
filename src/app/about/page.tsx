@@ -12,21 +12,34 @@ const AboutPage = () => {
         </h1>
 
         <div className="prose prose-indigo max-w-none">
+          <h2 className="text-2xl font-semibold text-indigo-800 mt-8 mb-4">
+            What is Countertechnique?
+          </h2>
           <p className="text-lg text-gray-700 mb-6">
-            This interactive guide is designed to help dancers explore and
-            understand the key movement tools of Countertechnique. Each body
-            part represents a specific tool that can be used to enhance your
-            movement practice.
+            Countertechnique is a contemporary dance technique developed by
+            Anouk van Dijk. It provides tools for body and mind to deal with the
+            demanding dance practice of the 21st century. The technique is based
+            on principles of counter-direction, counter-tension, and
+            counter-balance, helping dancers achieve greater efficiency,
+            awareness, and freedom in their movement.
+          </p>
+
+          <p className="text-lg text-gray-700 mb-6">
+            Through its systematic approach, Countertechnique enables dancers to
+            move bigger, more fluidly, and more spatially, while becoming
+            stronger and more flexible. It helps dancers to be more in the
+            moment, to be able to deal with the unexpected, and to be more
+            present in their dancing.
           </p>
 
           <h2 className="text-2xl font-semibold text-indigo-800 mt-8 mb-4">
-            About the Project
+            About This Project
           </h2>
           <p className="text-gray-700 mb-6">
-            This project was created to help dancers learn and practice
-            Countertechnique principles through an interactive visualization.
-            The tool allows you to explore different body parts and understand
-            how they contribute to the technique's unique movement quality.
+            This interactive tool was created by Sam Dobson for Francesca
+            Dominguez's Modern IV Dance Class at Barnard College. It is designed
+            to help students explore and understand the key principles of
+            Countertechnique through interactive visualizations and exercises.
           </p>
 
           <p className="text-gray-700 mb-6">
